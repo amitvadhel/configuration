@@ -226,11 +226,15 @@ def check_primary_keys(rds_list, username, password, environment, deploy):
                         'Value': table[6],  # percentage of the usage of primary keys
                         'Unit': UNIT
                     })
+
                     table_data["database_name"] = item['name']
                     table_data["table_name"] = table[1]
                     table_data["percentage_of_PKs_consumed"] = table[6]
+                    days_remaining = get_metrics_and_calcuate_diff(namespace, metric_name, item["name"], table[1],
+                                                                   table[6])
+                    if days_remaining:
+                        table_data["days_left"] = days_remaining
                     tables_reaching_exhaustion_limit.append(table_data)
-                    get_metrics_and_calcuate_diff(namespace, metric_name, item["name"], table[1], table[6])
             if len(metric_data) > 0:
                 cloudwatch.put_metric_data(Namespace=namespace, MetricData=metric_data)
         return tables_reaching_exhaustion_limit
@@ -268,7 +272,8 @@ def get_metrics_and_calcuate_diff(namespace, metric_name, dimension, value, curr
                                                                          last_max_reading)
             print("days remaining for {db} db are {days}".format(db=value,
                                                                  days=days_remaining_before_exhaustion))
-        #if days_remaining_before_exhaustion < 365:
+            return days_remaining_before_exhaustion
+            #if days_remaining_before_exhaustion < 365:
             #sys.exit(1)
 
 
