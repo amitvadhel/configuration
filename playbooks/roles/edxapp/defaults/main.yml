@@ -676,7 +676,7 @@ EDXAPP_JOURNALS_URL_ROOT: "https://journals-{{ EDXAPP_LMS_BASE }}"
 EDXAPP_JOURNALS_API_URL: "https://journals-{{ EDXAPP_LMS_BASE }}/api/v1/"
 
 # Learner portal settings
-EDXAPP_LEARNER_PORTAL_URL_ROOT: "https://learner-portal-{{ EDXAPP_LMS_BASE }}"
+EDXAPP_LEARNER_PORTAL_URL_ROOT: "https://learner_portal-{{ EDXAPP_LMS_BASE }}"
 
 # List of all logout URIs for IDAs which have been converted from using DOP to using DOT.
 EDXAPP_IDA_LOGOUT_URI_LIST: []
