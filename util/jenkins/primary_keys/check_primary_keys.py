@@ -60,22 +60,25 @@ def send_email(toaddr, fromaddr, primary_keys_message, region):
 
     message = """
     <p>Hello,</p>
-    <p>Primary keys of these table exhausted soon</p>
+    <p>Primary keys of these tables will exhaust soon</p>
     <table style='width:100%'>
       <tr style='text-align: left'>
         <th>Database</th>
         <th>Table</th>
         <th>Usage Percentage</th>
+        <th>Days remaining</th>
       </tr>
     """
     for item in range(len(primary_keys_message)):
         message += """
             <tr><td>{Database}</td><td>
             {Table}</td><td>
-            {UsedPercentage}</td></tr>""".format(
+            {UsedPercentage}</td>
+            <td>{DaysRemaining}</td></tr>""".format(
             Database=primary_keys_message[item]['database_name'],
             Table=primary_keys_message[item]['table_name'],
-            UsedPercentage=primary_keys_message[item]['percentage_of_PKs_consumed'])
+            UsedPercentage=primary_keys_message[item]['percentage_of_PKs_consumed'],
+            DaysRemaining=primary_keys_message[item]['days_left'])
 
     message += """</table>"""
     client.send_email(
