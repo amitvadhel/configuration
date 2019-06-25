@@ -477,6 +477,8 @@ username: "spongebob"
 email: "zhancock@edx.org"
 reason: "testing"
 website: "http://www.test.org"
+organization_key: "gtx"
+registrar_role: "organization_read_write_enrollments"
 EOF
 run_ansible masters_sandbox.yml -i "${deploy_host}," $extra_var_arg --user ubuntu
 
