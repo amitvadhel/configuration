@@ -470,7 +470,7 @@ fi
 run_ansible set_hostname.yml -i "${deploy_host}," -e hostname_fqdn=${deploy_host} --user ubuntu
 
 # master's integration environment setup
-if [[ $registrar == "true"]]; then
+if [[ $registrar == "true" ]]; then
   # vars specific to master's integration environment
   cat << EOF >> $extra_vars_file
 username: "zhancock@edx.org"
