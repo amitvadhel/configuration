@@ -45,11 +45,6 @@
       args:
         chdir: "{{ edxapp_code_dir }}"
 
-    - name: cache programs
-      shell: . {{ edxapp_env_path }} && {{ edxapp_venv_dir }}/bin/python manage.py lms cache_programs
-      args:
-        chdir: "{{ edxapp_code_dir }}"
-
     - name: create registrar orgranization
       shell: >
         . {{ registrar_env_path }} && {{ registrar_venv_dir }}/bin/python manage.py create_organization {{organization_key}}
