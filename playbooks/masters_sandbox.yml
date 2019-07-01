@@ -13,23 +13,23 @@
     - registrar_code_dir: /edx/app/registrar/registrar
 
   tasks:
-    - name: create lms user
-      shell: . {{ edxapp_env_path }} && {{ edxapp_venv_dir }}/bin/python manage.py lms manage_user {{username}} {{email}}
-      args:
-        chdir: "{{ edxapp_code_dir }}"
+    # - name: create lms user
+    #   shell: . {{ edxapp_env_path }} && {{ edxapp_venv_dir }}/bin/python manage.py lms manage_user {{username}} {{email}}
+    #   args:
+    #     chdir: "{{ edxapp_code_dir }}"
 
-    - name: create user api access request
-      shell: >
-        . {{ edxapp_env_path }} && {{ edxapp_venv_dir }}/bin/python manage.py lms create_api_access_request {{username}} --create-config
-      args:
-        chdir: "{{ edxapp_code_dir }}"
+    # - name: create user api access request
+    #   shell: >
+    #     . {{ edxapp_env_path }} && {{ edxapp_venv_dir }}/bin/python manage.py lms create_api_access_request {{username}} --create-config
+    #   args:
+    #     chdir: "{{ edxapp_code_dir }}"
 
-    - name: create dot application
-      shell: >
-        . {{ edxapp_env_path }} && {{ edxapp_venv_dir }}/bin/python manage.py lms create_dot_application "master's api client" {{username}}
-        --client-id {{organization_key}}-api-client-id --scopes=user_id
-      args:
-        chdir: "{{ edxapp_code_dir }}"
+    # - name: create dot application
+    #   shell: >
+    #     . {{ edxapp_env_path }} && {{ edxapp_venv_dir }}/bin/python manage.py lms create_dot_application "master's api client" {{username}}
+    #     --client-id {{organization_key}}-api-client-id --scopes=user_id
+    #   args:
+    #     chdir: "{{ edxapp_code_dir }}"
 
     # - name: create discovery site configuration
     #   shell: >
