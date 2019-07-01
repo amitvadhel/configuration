@@ -27,6 +27,7 @@ hermes_venv_dir: "{{ hermes_app_dir }}/venvs/{{ hermes_service_name }}"
 hermes_venv_bin: "{{ hermes_venv_dir }}/bin"
 hermes_interval: 60
 hermes_manifest_yaml_file_path: "{{ COMMON_CFG_DIR }}/{{ hermes_service_name }}.yml"
+hermes_private_key: "{{ hermes_app_dir }}/{{ hermes_service_name }}-private-key"
 hermes_environment:
   PATH: "{{ hermes_venv_dir }}/bin:{{ ansible_env.PATH }}"
 #
@@ -59,6 +60,10 @@ HERMES_COPY_COMMAND: /bin/cp {{ hermes_download_dir }}/{{ hermes_target_service 
 # How to restart the application
 HERMES_RELOAD_COMMAND: /edx/bin/supervisorctl signal HUP all
 
+HERMES_USE_PRIVATE_KEY: false
+# Paste the contents of the hermes private into this var
+HERMES_PRIVATE_KEY: !!null
+
 # Hermes typically reloads one config file and reloads all the services on that box, typically 1 service for us
 # if you need to do something more complex like reloading multiple services, running additional commands etc
 # you could overwrite hermes_service_config directly and ignore these defaults
@@ -66,6 +71,7 @@ hermes_service_config:
   - url: '{{ HERMES_REMOTE_FILE_PATH }}'
     filename: '{{ HERMES_LOCAL_FILE_PATH }}'
     command:  'sudo {{ HERMES_COPY_COMMAND }} && sudo {{ HERMES_RELOAD_COMMAND }}'
+    secret_key_file: '{{ hermes_private_key if HERMES_USE_PRIVATE_KEY else None }}'
 
 # These are dropped into sudoers for the user that runs this program, care should be taken to ensure they are safe
 # to run. By default we assume the 1 service per box and restart supervisor model. If you did something custom with

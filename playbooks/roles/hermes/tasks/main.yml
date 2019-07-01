@@ -107,6 +107,18 @@
     - install
     - install:base
 
+- name: install private key
+  copy:
+    content: "{{ HERMES_PRIVATE_KEY }}"
+    dest: "{{ hermes_private_key }}"
+    force: yes
+    owner: "{{ hermes_user }}"
+    mode: "0600"
+  when: HERMES_USE_PRIVATE_KEY
+  tags:
+    - install
+    - install:base
+
 - name: Add sudoers entry
   template:
     src: "templates/sudoers.j2"
